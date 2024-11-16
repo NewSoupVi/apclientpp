@@ -753,7 +753,6 @@ public:
             _checkQueue.insert(locations.begin(), locations.end());
         }
         for (const auto& location: locations) {
-            _checkedLocations.insert(location);
             _missingLocations.erase(location);
         }
         return true;
