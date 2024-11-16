@@ -759,14 +759,19 @@ public:
         return true;
     }
 
-    bool LocationScouts(std::list<int64_t> locations, int create_as_hint = 0)
+    bool LocationScouts(std::list<int64_t> locations, int create_as_hint = 0, int target_player = -1)
     {
+        if (target_player == -1) {
+            target_player = get_player_number();
+        }
+
         // returns true if scouts were sent or queued
         if (_state == State::SLOT_CONNECTED) {
             auto packet = json{{
                 {"cmd", "LocationScouts"},
                 {"locations", locations},
                 {"create_as_hint", create_as_hint},
+                {"player", target_player},
             }};
 
             debug("> " + packet[0]["cmd"].get<std::string>() + ": " + packet.dump());
